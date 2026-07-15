@@ -1,0 +1,57 @@
+:root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; color: #172033; background: #f3f6fb; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.app-shell { max-width: 1180px; margin: auto; padding: 48px 22px 80px; }
+.topbar, .section-title, .calendar-heading, .task-row-top { align-items: center; display: flex; justify-content: space-between; gap: 20px; }
+.topbar { margin-bottom: 28px; }
+.eyebrow { color: #4f46e5; font-size: .72rem; font-weight: 850; letter-spacing: .14em; margin: 0 0 8px; }
+h1, h2, h3, h4 { color: #18264a; margin: 0; }
+h1 { font-size: clamp(2rem, 4vw, 3.3rem); letter-spacing: -.04em; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.05rem; }
+h4 { font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+.subtitle, .hint, .status, .selected-day p, .selected-user { color: #69758a; }
+.subtitle { font-size: 1rem; margin: 10px 0 0; }
+.selected-user { font-size: .95rem; font-weight: 750; margin: 6px 0 0; }
+.user-chip, .status { background: #e8edff; border-radius: 99px; color: #4338ca; font-size: .8rem; font-weight: 700; padding: 9px 13px; }
+.setup-card, .calendar-card { background: white; border: 1px solid #e2e8f0; border-radius: 22px; box-shadow: 0 18px 50px #243b6b12; padding: 26px; }
+.calendar-card { margin-top: 22px; }
+.hint { font-size: .8rem; }
+form { display: grid; gap: 15px; margin-top: 22px; }
+label { color: #334155; display: grid; font-size: .84rem; font-weight: 750; gap: 7px; }
+input, select, textarea { background: #fff; border: 1px solid #ccd6e5; border-radius: 10px; color: #172033; font: inherit; padding: 12px 13px; width: 100%; }
+input:focus, select:focus, textarea:focus { border-color: #6366f1; box-shadow: 0 0 0 3px #e0e7ff; outline: 0; }
+.identity-grid, .task-fields, .gmail-actions { display: grid; gap: 13px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gmail-actions { align-items: end; background: #f8fafc; border: 1px solid #d9e1ee; border-radius: 15px; padding: 16px; }
+.task-heading { margin-top: 12px; }
+.task-heading h3 { color: #334155; }
+.task-list { display: grid; gap: 12px; }
+.task-row { background: #f8fafc; border: 1px solid #d9e1ee; border-radius: 15px; padding: 16px; }
+.task-row-top { color: #4338ca; margin-bottom: 8px; }
+.remove-task { background: transparent; border: 0; color: #dc2626; cursor: pointer; font-weight: 750; }
+button { border: 0; border-radius: 10px; cursor: pointer; font: inherit; font-weight: 800; padding: 12px 16px; }
+.primary-button { background: #4f46e5; color: white; }
+.primary-button:hover { background: #4338ca; }
+.outline-button { background: #eef2ff; color: #4338ca; }
+.calendar-heading { margin-bottom: 22px; }
+.day-tabs { display: grid; gap: 8px; grid-template-columns: repeat(14, minmax(60px, 1fr)); overflow-x: auto; }
+.day-tab { background: #f8fafc; border: 1px solid #e1e7f0; color: #64748b; display: grid; gap: 4px; min-width: 64px; padding: 10px 5px; }
+.day-tab span { font-size: .85rem; }
+.day-tab.active { background: #4f46e5; border-color: #4f46e5; color: white; }
+.day-view { margin-top: 24px; }
+.selected-day { align-items: baseline; display: flex; gap: 12px; margin-bottom: 18px; }
+.selected-day p { margin: 0; }
+.period { border-top: 1px solid #e7ebf2; padding: 18px 0 4px; }
+.block-list { display: grid; gap: 8px; margin-top: 10px; }
+.time-block { align-items: center; border-left: 5px solid #94a3b8; border-radius: 10px; display: flex; gap: 16px; min-height: 64px; padding: 10px 14px; }
+.time-block time { color: #536176; font-size: .78rem; font-weight: 800; line-height: 1.4; min-width: 58px; }
+.time-block time span { color: #94a3b8; }
+.time-block strong, .time-block small { display: block; }
+.time-block small { color: #758197; font-size: .78rem; margin-top: 4px; }
+.time-block.task { background: #eef2ff; border-color: #4f46e5; }
+.time-block.personal { background: #f0fdf4; border-color: #22c55e; }
+.time-block.work { background: #fff7ed; border-color: #f97316; }
+.time-block.rest { background: #f8fafc; border-color: #94a3b8; }
+.empty-calendar { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 14px; color: #64748b; padding: 38px; text-align: center; }
+.hidden { display: none; }
+@media (max-width: 720px) { .app-shell { padding: 30px 14px 50px; } .topbar, .section-title, .calendar-heading { align-items: flex-start; flex-direction: column; } .identity-grid, .task-fields, .gmail-actions { grid-template-columns: 1fr; } .day-tabs { grid-template-columns: repeat(14, 64px); } }

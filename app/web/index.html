@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trợ lý năng suất AI</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="hero">
+        <p class="eyebrow">AI PERSONAL PRODUCTIVITY OS</p>
+        <h1>Biến mục tiêu thành kế hoạch có thể thực hiện.</h1>
+        <p class="lead">
+          Nhập công việc, mục tiêu hoặc cập nhật tiến độ bằng ngôn ngữ tự nhiên.
+          AI sẽ tạo danh sách ưu tiên, bước nhỏ và lịch làm việc ban đầu.
+        </p>
+      </section>
+
+      <section class="panel input-panel" aria-labelledby="input-title">
+        <div class="panel-heading">
+          <div>
+            <p class="step">BƯỚC 1</p>
+            <h2 id="input-title">Bạn muốn làm gì?</h2>
+          </div>
+          <span class="badge">Bản MVP</span>
+        </div>
+        <form id="planner-form">
+          <label for="user-id">Mã người dùng</label>
+          <input id="user-id" name="user-id" value="demo-user" required />
+
+          <label for="display-name">Tên người dùng</label>
+          <input id="display-name" name="display-name" placeholder="Ví dụ: Nguyễn Minh" />
+
+          <div class="section-heading"><h3>Danh sách công việc</h3><button id="add-task" class="secondary" type="button">+ Thêm công việc</button></div>
+          <div id="task-list" class="task-list"></div>
+
+          <label for="raw-input">Mục tiêu hoặc công việc</label>
+          <textarea id="raw-input" name="raw-input" class="hidden" rows="1"></textarea>
+
+          <div class="form-grid">
+            <div><label for="deadline-at">Deadline (ngày và giờ)</label><input id="deadline-at" type="datetime-local" /></div>
+            <div><label for="focus-minutes">Một phiên tập trung (phút)</label><input id="focus-minutes" type="number" min="15" max="120" value="25" /></div>
+            <div><label for="start-time">Bắt đầu rảnh từ</label><input id="start-time" type="time" value="19:00" required /></div>
+            <div><label for="end-time">Kết thúc rảnh lúc</label><input id="end-time" type="time" value="21:00" required /></div>
+          </div>
+
+          <label for="minutes">Thời gian rảnh mỗi ngày (phút)</label>
+          <input id="minutes" name="minutes" type="number" min="15" max="1440" value="120" required />
+
+          <fieldset><legend>Ngày bạn muốn xếp lịch</legend><div class="days">
+            <label><input type="checkbox" name="weekday" value="0" checked /> Thứ 2</label><label><input type="checkbox" name="weekday" value="1" checked /> Thứ 3</label><label><input type="checkbox" name="weekday" value="2" checked /> Thứ 4</label><label><input type="checkbox" name="weekday" value="3" checked /> Thứ 5</label><label><input type="checkbox" name="weekday" value="4" checked /> Thứ 6</label><label><input type="checkbox" name="weekday" value="5" checked /> Thứ 7</label><label><input type="checkbox" name="weekday" value="6" checked /> Chủ nhật</label>
+          </div></fieldset>
+          <div class="form-grid">
+            <div><label for="energy-peak">Bạn tỉnh táo nhất vào</label><select id="energy-peak"><option value="flexible">Linh hoạt</option><option value="morning">Buổi sáng</option><option value="afternoon">Buổi chiều</option><option value="evening">Buổi tối</option></select></div>
+            <div><label for="work-style">Cách làm việc phù hợp</label><select id="work-style"><option value="flexible">Linh hoạt</option><option value="deep_focus">Tập trung sâu</option><option value="short_sprints">Các phiên ngắn</option></select></div>
+          </div>
+          <label for="commitments">Lịch bận hoặc ràng buộc khác</label><textarea id="commitments" rows="2" placeholder="Ví dụ: Thứ 3 có lớp 19:00–20:30; không làm việc sau 22:00."></textarea>
+          <label for="planning-notes">Thông tin để AI cá nhân hóa</label><textarea id="planning-notes" rows="2" placeholder="Ví dụ: Tôi dễ trì hoãn khi việc quá lớn; muốn ưu tiên học trước giải trí."></textarea>
+
+          <button id="submit-button" type="submit">Tạo kế hoạch</button>
+        </form>
+      </section>
+
+      <section class="panel saved-panel" aria-labelledby="saved-title">
+        <div class="panel-heading"><div><p class="step">LỊCH SỬ</p><h2 id="saved-title">Kế hoạch đã lưu</h2></div><button id="load-plans" class="secondary" type="button">Xem kế hoạch</button></div>
+        <p id="saved-hint" class="task-meta">Nhập mã người dùng rồi chọn một kế hoạch để xem lại lịch.</p>
+        <div id="saved-plans" class="saved-plans"></div>
+      </section>
+
+      <section id="empty-state" class="empty-state">
+        <span>✦</span>
+        <p>Kế hoạch của bạn sẽ xuất hiện ở đây.</p>
+      </section>
+
+      <section id="result" class="result hidden" aria-live="polite">
+        <div class="result-header">
+          <div>
+            <p class="step">BƯỚC 2</p>
+            <h2>Kế hoạch đề xuất</h2>
+          </div>
+          <div class="result-badges">
+            <span id="llm-status" class="confidence"></span>
+            <span id="confidence" class="confidence"></span>
+          </div>
+        </div>
+
+        <div id="warnings" class="warnings"></div>
+        <section id="schedule-only" class="schedule-only hidden" aria-labelledby="schedule-only-title">
+          <h3 id="schedule-only-title">Lịch trình gợi ý</h3>
+          <p id="schedule-reasoning-only" class="schedule-reasoning"></p>
+          <ul id="schedule-only-list"></ul>
+        </section>
+        <div class="grid ai-grid">
+          <article class="card"><h3>AI hiểu mục tiêu thế nào?</h3><p id="goal-analysis"></p><ul id="success-criteria"></ul><p id="assumptions" class="task-meta"></p></article>
+          <article class="card"><h3>Lý do AI sắp lịch</h3><p id="schedule-reasoning"></p><div id="risks"></div></article>
+        </div>
+        <div class="grid">
+          <article class="card"><h3>Công việc đã nhận diện</h3><ul id="tasks"></ul></article>
+          <article class="card"><h3>Thứ tự ưu tiên</h3><ol id="priorities"></ol></article>
+          <article class="card"><h3>Lịch làm việc</h3><ul id="schedule"></ul></article>
+          <article class="card"><h3>Bước bắt đầu</h3><div id="subtasks"></div></article>
+          <article class="card"><h3>Phiên tập trung gợi ý</h3><div id="focus-sessions"></div></article>
+          <article class="card"><h3>Câu hỏi review</h3><div id="review-questions"></div></article>
+        </div>
+        <p id="confirmation-note" class="confirmation hidden"></p>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

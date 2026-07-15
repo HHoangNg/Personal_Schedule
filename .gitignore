@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+.venv/
+.personal_schedule/
+.agents/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.egg-info/
+build/
+dist/
+data/
+secrets/
+README_FULL.md

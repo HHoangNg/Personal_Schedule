@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch cá nhân AI</title>
+    <link rel="stylesheet" href="/static/calendar.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div><p class="eyebrow">AI PERSONAL CALENDAR</p><h1>Lịch cá nhân của bạn</h1><p class="subtitle">AI tự đánh giá ưu tiên và lấp lịch trong 14 ngày.</p></div>
+        <div class="user-chip">Lịch riêng theo mã người dùng</div>
+      </header>
+
+      <section class="setup-card">
+        <div class="section-title"><div><p class="eyebrow">THIẾT LẬP</p><h2>Thêm công việc vào lịch</h2></div><span class="hint">AI sẽ tự đánh giá loại và ưu tiên</span></div>
+        <form id="calendar-form">
+          <div class="identity-grid"><label>Mã người dùng<input id="user-id" value="demo-user" required /></label><label>Tên người dùng<input id="display-name" placeholder="Ví dụ: Nguyễn Minh" /></label></div>
+          <div class="gmail-actions">
+            <label>Số ngày quét Gmail<input id="gmail-days" type="number" min="1" max="30" value="3" /></label>
+            <button id="scan-gmail" class="outline-button" type="button">Quét Gmail và cập nhật lịch</button>
+          </div>
+          <div class="section-title task-heading"><h3>Danh sách công việc</h3><button id="add-task" class="outline-button" type="button">+ Thêm công việc</button></div>
+          <div id="task-list" class="task-list"></div>
+          <label>Thông tin thêm để AI cập nhật lịch<textarea id="planning-notes" rows="3" placeholder="Ví dụ: Nấu cơm 3 bữa; 20 giờ đi tắm; ưu tiên học tiếng Anh trước."></textarea></label>
+          <button class="primary-button" type="submit" id="save-button">Tạo hoặc cập nhật lịch 14 ngày</button>
+        </form>
+      </section>
+
+      <section class="calendar-card" aria-live="polite">
+        <div class="calendar-heading"><div><p class="eyebrow">LỊCH TRÌNH</p><h2>Lịch 14 ngày</h2><p id="calendar-user-name" class="selected-user"></p></div><span id="calendar-status" class="status">Chưa có lịch mới</span></div>
+        <div id="day-tabs" class="day-tabs"></div>
+        <div id="day-view" class="day-view"><div class="empty-calendar">Tạo lịch để xem các khối công việc, thời gian cá nhân và nghỉ ngơi.</div></div>
+      </section>
+    </main>
+    <script src="/static/calendar.js"></script>
+  </body>
+</html>
