@@ -103,16 +103,9 @@ def merge_with_existing_request(
         previous.schedule_exclusions,
         _detect_delete_intents(request, existing),
     )
-    previous_tasks = {task.title.casefold(): task for task in previous.task_inputs if task.title.strip()}
-    merged_tasks: list[TaskInput] = list(previous.task_inputs)
-    for task in request.task_inputs:
-        key = task.title.casefold().strip()
-        if key and key in previous_tasks:
-            merged_tasks = [
-                task if item.title.casefold().strip() == key else item for item in merged_tasks
-            ]
-        else:
-            merged_tasks.append(task)
+    # A submitted task form is the user's current task list, not a patch to an
+    # earlier form. Free-text-only updates deliberately retain existing tasks.
+    merged_tasks: list[TaskInput] = list(request.task_inputs) if request.task_inputs else list(previous.task_inputs)
     merged_tasks = _apply_full_task_deletions(merged_tasks, exclusions)
 
     cleaned_previous_notes = _remove_fully_deleted_titles(previous.planning_notes, exclusions)

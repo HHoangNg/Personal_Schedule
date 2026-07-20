@@ -7,13 +7,14 @@
 __pycache__/
 .pytest_cache/
 .ruff_cache/
-tests/
 .agent/
 *.pyc
 *.egg-info/
 build/
 dist/
 data/
+!evals/data/
+!evals/data/golden.jsonl
 secrets/
 docs/
 scripts/

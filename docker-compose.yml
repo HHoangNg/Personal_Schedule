@@ -1,22 +1,27 @@
 services:
   api:
     build: .
-    env_file: .env
     ports: ["8000:8000"]
-    depends_on: [postgres, qdrant]
-    volumes: ["api_data:/app/data"]
-  postgres:
-    image: postgres:16-alpine
     environment:
-      POSTGRES_DB: productivity
-      POSTGRES_USER: productivity
-      POSTGRES_PASSWORD: productivity
-    volumes: ["postgres_data:/var/lib/postgresql/data"]
+      APP_ENV: ${APP_ENV:-production}
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      QDRANT_SYNC_ENABLED: ${QDRANT_SYNC_ENABLED:-false}
+      DATABASE_PATH: /app/data/productivity.db
+    volumes:
+      - api_data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
   qdrant:
     image: qdrant/qdrant:v1.12.5
+    profiles: ["qdrant"]
+    restart: unless-stopped
     ports: ["6333:6333"]
     volumes: ["qdrant_data:/qdrant/storage"]
 volumes:
-  postgres_data:
   qdrant_data:
   api_data:

@@ -1,0 +1,2 @@
+{"id":"explicit_deadline","input":"Hoàn thành báo cáo trước 2026-07-20","expected_task_keywords":["báo cáo"],"deadline":"2026-07-20"}
+{"id":"no_deadline","input":"Học Docker và sửa project RAG trong tuần này","expected_task_keywords":["Docker","RAG"],"deadline":null}
